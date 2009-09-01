@@ -1,5 +1,7 @@
 class DigitalNZ::Record
 
+  attr_reader :id, :url
+
   def initialize(url)
     query = [ "api_key=" + CGI.escape(DigitalNZ.api_key) ]
     url += ".json?" + query * "&"
@@ -7,14 +9,6 @@ class DigitalNZ::Record
     res = fetch(url)
     res = JSON.parse(res.body)
     puts res.to_yaml
-  end
-
-  def id
-    @id
-  end
-
-  def url
-    @url
   end
 
   private

@@ -1,4 +1,7 @@
 class DigitalNZ::Search
+
+  attr_reader :num_results_requested, :count, :start, :results
+
   #Takes a hash of params, and an optional custom_search title
   def initialize(params, custom_search = nil) 
     if custom_search
@@ -24,27 +27,13 @@ class DigitalNZ::Search
     end
   end
 
-  def num_results_requested
-    @num_results_requested
-  end
-
-  def count
-    @count
-  end
-
-  def start
-    @start
-  end
-
-  def results
-    @results
-  end
-
   def to_yaml
     @orig.to_yaml
   end
 
   class Result 
+
+    attr_reader :category, :title, :content_provider, :date, :syndication_date, :description, :display_url, :id, :source_url, :thumbnail_url
 
     def initialize(args)
       @args = args
@@ -61,52 +50,12 @@ class DigitalNZ::Search
       @metadata_url = args['metadata_url'] if args['metadata_url']
     end
 
-    def category
-      @category
-    end
-
-    def title
-      @title
-    end
-
-    def content_provider
-      @content_provider
-    end
-
-    def date
-      @date
-    end
-
-    def syndication_date
-      @syndication_date
-    end
-
-    def description
-      @description
-    end
-
-    def display_url
-      @display_url
-    end
-
-    def id
-      @id
-    end
-
     def metadata
       if !@metadata.nil?
         @metadata
       else 
         @metadata = DigitalNZ.record(@metadata_url) if @metadata_url
       end
-    end
-
-    def source_url
-      @source_url
-    end
-
-    def thumbnail_url
-      @thumbnail_url
     end
 
     def to_yaml
