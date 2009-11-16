@@ -25,6 +25,11 @@ class DigitalNZ::Search
     for r in res['results']
       @results << Result.new(r)
     end
+    @facets = res['facets']
+  end
+
+  def facets
+    @facets
   end
 
   def to_yaml
